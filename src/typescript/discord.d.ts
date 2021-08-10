@@ -19,4 +19,8 @@ declare module 'discord.js' {
 		};
 		run: (bot: Client, message: Message, args: string[]) => Promise<any>;
 	}
+
+	export interface Channel {
+		send: any;
+	}
 }
