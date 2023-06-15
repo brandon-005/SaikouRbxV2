@@ -1,10 +1,8 @@
-import { Message, PermissionString } from 'discord.js';
+import { PermissionsString, Client, Message, CommandInteraction, ContextMenuInteraction, Collection, Command, ApplicationCommandOptionType, ApplicationCommandType } from 'discord.js';
 
 declare module 'discord.js' {
-	export interface Client {
-		commands: any;
-		cooldowns: any;
-		aliases: any;
+	export interface Channel {
+		name: any;
 	}
 
 	export interface Command {
@@ -12,15 +10,29 @@ declare module 'discord.js' {
 			commandName: string;
 			commandAliases: string[];
 			commandDescription: string;
+			COOLDOWN_TIME?: number;
 			developerOnly?: boolean;
-			userPermissions?: PermissionString[];
+			userPermissions?: PermissionsString;
 			commandUsage?: string;
 			limitedChannel?: string;
+			slashOptions?: { name: string; description: string; type: ApplicationCommandOptionType; required: boolean; choices?: { name: string; value: string }[] }[];
 		};
-		run: (bot: Client, message: Message, args: string[]) => Promise<any>;
+		run: ({ bot, message, args, interaction }: { bot: Client; message?: Message; args?: string[]; interaction?: CommandInteraction }) => Promise<any>;
 	}
 
-	export interface Channel {
-		send: any;
+	export interface ContextMenu {
+		config: {
+			commandName: string;
+			type: ApplicationCommandType;
+		};
+		run: ({ bot, args, interaction }: { bot: Client; args?: string[]; interaction?: ContextMenuInteraction }) => Promise<any>;
+	}
+}
+
+declare module 'discord.js' {
+	export interface Client {
+		[key: string];
+		cooldowns: Collection<string, number>;
+		slashCommands: Collection<string, Command>;
 	}
 }

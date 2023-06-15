@@ -29,6 +29,7 @@
 		"no-restricted-syntax": "off",
 		"consistent-return": "off",
 		"indent": "off",
+		"import/no-extraneous-dependencies": "off",
 
 		"import/no-dynamic-require": "off",
 		"import/named": "off",
