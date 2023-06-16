@@ -22,7 +22,7 @@ export = async (bot: Client) => {
 	await onWallPostEvent(bot);
 
 	/* Setting status */
-	const statuses: string[] = [`🎮 SaikouRoblox | ?help`, `⚔️ Bloxxing Players`, `✨ @SaikouDev`];
+	const statuses: string[] = [`📂 /rbxhelp`, `⚔️ Bloxxing Players`, `🤖 SaikouRoblox`];
 
 	setInterval(() => {
 		bot.user!.setActivity(String(statuses[Math.floor(Math.random() * statuses.length)]), { type: ActivityType.Streaming, url: 'https://www.twitch.tv/test' });

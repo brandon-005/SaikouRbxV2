@@ -13,3 +13,11 @@ export interface ExileTypes extends Document {
 	RobloxUsername: String;
 	RobloxID: Number;
 }
+
+/* Exiled User */
+export interface ShoutTypes extends Document {
+	content: string;
+	duration: number;
+	creatorID: string;
+	date: Date;
+}

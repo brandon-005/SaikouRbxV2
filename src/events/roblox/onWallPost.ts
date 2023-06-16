@@ -31,11 +31,11 @@ export = async (bot: Client) => {
 				if ((await getRankInGroup(Number(process.env.GROUP), robloxID)) >= 20) return;
 
 				deleteWallPost(Number(process.env.GROUP), post.id).catch();
-				return (bot.channels.cache.find((channel: any) => channel.name === '📂group-logs') as TextChannel).send({
+				return (bot.channels.cache.find((channel: any) => channel.name === '🤖auto-mod') as TextChannel).send({
 					embeds: [
 						new EmbedBuilder() // prettier-ignore
 							.setAuthor({ name: 'Saikou Group | Auto Moderation', iconURL: bot.user.displayAvatarURL() })
-							.setDescription(`**A message by [${robloxName}](https://roblox.com/users/${robloxID}/profile) has been blocked <t:${parseInt(String(Date.now() / 1000))}:R> on the Saikou Group Wall**.`)
+							.setDescription(`**A message by [${robloxName}](https://roblox.com/users/${robloxID}/profile) has been deleted <t:${parseInt(String(Date.now() / 1000))}:R> on the Saikou Group Wall**.`)
 							.addFields([
 								{ name: 'Triggered Content', value: `${post.body}` },
 								{ name: 'Triggered Reason', value: `Post included the word/phrase **${word.content}** which is blacklisted.` },

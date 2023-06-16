@@ -40,3 +40,5 @@ export const DISCORD_PERMISSIONS: string[] = [
 ];
 
 export const MESSAGE_TIMEOUT: number = 10000;
+
+export const PROMPT_TIMEOUT: number = 300000;
