@@ -42,7 +42,7 @@ process.on('unhandledRejection', (rejectionError: Error) => {
 /* EXILING PLAYERS FROM GROUP */
 setInterval(async () => {
 	/* FETCHING PLAYERS WITH FOLLOWER ROLE ID */
-	const groupMembers = await getPlayers(Number(process.env.GROUP), 21677754, 'Desc', 5);
+	const groupMembers = await getPlayers(Number(process.env.GROUP), 21677754, 'Desc', 5).catch();
 
 	groupMembers.forEach(async (groupMember) => {
 		const exiledPlayer = await exileUser.findOne({ RobloxID: groupMember.userId });

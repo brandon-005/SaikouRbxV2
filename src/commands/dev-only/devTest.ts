@@ -5,10 +5,10 @@ const command: Command = {
 		commandName: 'test2',
 		commandAliases: ['test2'],
 		commandDescription: 'Used for testing.',
-		userPermissions: ['MANAGE_MESSAGES'],
+		userPermissions: 'ManageMessages',
 	},
-	run: async (bot, message, args) => {
-		message.channel.send('Yo');
+	run: async ({ interaction }) => {
+		interaction.editReply({ content: 'success' });
 	},
 };
 
