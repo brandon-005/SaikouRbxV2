@@ -23,5 +23,5 @@ export = (bot: Client) => {
 			}
 		}
 	};
-	['bot', 'cmd-handler'].forEach((folder) => load(folder));
+	['bot', 'cmd-handler', 'roblox'].forEach((folder) => load(folder));
 };

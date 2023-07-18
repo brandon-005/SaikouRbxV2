@@ -42,28 +42,32 @@ process.on('unhandledRejection', (rejectionError: Error) => {
 /* EXILING PLAYERS FROM GROUP */
 setInterval(async () => {
 	/* FETCHING PLAYERS WITH FOLLOWER ROLE ID */
-	const groupMembers = await getPlayers(Number(process.env.GROUP), 21677754, 'Desc', 5).catch();
+	try {
+		const groupMembers = await getPlayers(Number(process.env.GROUP), 21677754, 'Desc', 5);
 
-	groupMembers.forEach(async (groupMember) => {
-		const exiledPlayer = await exileUser.findOne({ RobloxID: groupMember.userId });
+		groupMembers.forEach(async (groupMember: any) => {
+			const exiledPlayer = await exileUser.findOne({ RobloxID: groupMember.userId });
 
-		if (exiledPlayer) {
-			await exile(Number(process.env.GROUP), Number(groupMember.userId)).catch();
-			(bot.channels.cache.find((channel: any) => channel.name === '🤖auto-mod') as TextChannel).send({
-				embeds: [
-					new EmbedBuilder() // prettier-ignore
-						.setAuthor({ name: 'Saikou Group | Auto Moderation', iconURL: bot.user.displayAvatarURL() })
-						.setDescription(`**Player [${groupMember.username}](https://roblox.com/users/${groupMember.userId}/profile) has been exiled automatically <t:${parseInt(String(Date.now() / 1000))}:R> from the Saikou Group**.`)
-						.addFields([
-							{ name: 'Moderator', value: `${exiledPlayer.Moderator}` },
-							{ name: 'Exile Reason', value: `${exiledPlayer.Reason}` },
-						])
-						.setFooter({ text: `Automatic Exile • Roblox ID: ${groupMember.userId}` })
-						.setColor(EMBED_COLOURS.red),
-				],
-			});
-		}
-	});
+			if (exiledPlayer) {
+				await exile(Number(process.env.GROUP), Number(groupMember.userId)).catch();
+				(bot.channels.cache.find((channel: any) => channel.name === '🤖auto-mod') as TextChannel).send({
+					embeds: [
+						new EmbedBuilder() // prettier-ignore
+							.setAuthor({ name: 'Saikou Group | Auto Moderation', iconURL: bot.user.displayAvatarURL() })
+							.setDescription(`**Player [${groupMember.username}](https://roblox.com/users/${groupMember.userId}/profile) has been exiled automatically <t:${parseInt(String(Date.now() / 1000))}:R> from the Saikou Group**.`)
+							.addFields([
+								{ name: 'Moderator', value: `${exiledPlayer.Moderator}` },
+								{ name: 'Exile Reason', value: `${exiledPlayer.Reason}` },
+							])
+							.setFooter({ text: `Automatic Exile • Roblox ID: ${groupMember.userId}` })
+							.setColor(EMBED_COLOURS.red),
+					],
+				});
+			}
+		});
+	} catch (error) {
+		console.log(`Failed to fetch group members: ${error}`);
+	}
 }, 7000);
 
 /* CHECKING FOR EXPIRED SHOUTS */
